@@ -123,6 +123,7 @@ doc_events = {
     "POS Profile": {"validate": "ury.ury.hooks.ury_pos_profile.validate"},
     "Sales Invoice": {"before_insert": "ury.ury.hooks.ury_sales_invoice.before_insert"},
     "Customer": {"before_save": "ury.ury.hooks.ury_customer.before_insert"},
+    "Item": {"validate": "ury.ury.hooks.ury_item.validate"},
 }
 
 # Scheduled Tasks

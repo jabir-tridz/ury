@@ -48,6 +48,7 @@ def get_order_invoice(table=None, invoiceNo=None, is_payment=None):
             )
 
             invoice.is_pos = 1
+            invoice.update_stock = 1
             invoice.restaurant = restaurant
             invoice.branch = branch
 
@@ -78,6 +79,7 @@ def get_order_invoice(table=None, invoiceNo=None, is_payment=None):
         else:
             invoice = frappe.new_doc("POS Invoice")
             invoice.is_pos = 1
+            invoice.update_stock = 1
         invoice.taxes_and_charges = frappe.db.get_value(
             "POS Profile", invoice.pos_profile, "taxes_and_charges"
         )
@@ -455,12 +457,12 @@ def cancel_order(invoice_id, reason):
         pass
 
     # Update invoice status
-    frappe.db.update(
-        "POS Invoice",
-        invoice_id,
+    frappe.db.set_value(
+        "URY Table",
+        pos_invoice.restaurant_table,
         {"docstatus": 2, "status": "Cancelled", "cancel_reason": reason},
     )
-
+   
 
 # Method for URY POS
 @frappe.whitelist()

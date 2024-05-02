@@ -3,6 +3,17 @@ from frappe import _
 
 
 @frappe.whitelist()
+def getTable(room):
+    branch_name = getBranch()   
+    tables = frappe.get_all(
+        "URY Table",
+        fields=["name", "occupied", "latest_invoice_time", "is_take_away", "restaurant_room"],
+        filters={"branch": branch_name,"restaurant_room":room,}
+    )    
+    return tables
+
+
+@frappe.whitelist()
 def getRestaurantMenu(pos_profile, table=None):
     menu_items = []
     menu_items_with_image = []

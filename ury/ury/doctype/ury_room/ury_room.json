@@ -8,7 +8,10 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "branch",
+  "column_break_ahfni",
   "room_type",
+  "section_break_hrqbe",
   "printer_settings"
  ],
  "fields": [
@@ -23,11 +26,27 @@
    "fieldtype": "Table",
    "label": "Printer Settings",
    "options": "URY Printer Settings"
+  },
+  {
+   "fieldname": "branch",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Branch",
+   "options": "Branch",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_ahfni",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_hrqbe",
+   "fieldtype": "Section Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-01-08 13:33:41.540961",
+ "modified": "2024-05-01 19:54:10.412708",
  "modified_by": "Administrator",
  "module": "URY",
  "name": "URY Room",

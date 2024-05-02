@@ -203,7 +203,9 @@ def sync_order(
         }
         past_item.append(previous_item)
 
-    # conditional checking for ury and for ury pos
+    # Conditional checking for 'items' type:
+    # - 'ury': JSON passed, hence using isinstance
+    # - 'ury_pos': Already formatted list, hence using else
     if isinstance(items, str):
         items = json.loads(items)
         invoice.items = []
@@ -249,11 +251,14 @@ def sync_order(
                 filters={"item_code": item.item_code, "price_list": price_list},
                 fields=["price_list_rate"],
             )
-
-            item.rate = item_prices[0].price_list_rate
-            item.cost_center = frappe.db.get_value(
-                "POS Profile", pos_profile, "cost_center"
-            )
+            
+            if not item_prices:
+                frappe.throw(_("POS Profile Not Found or User permission in POS Profile is not given to this user."))
+            else:
+                item.rate = item_prices[0].price_list_rate
+                item.cost_center = frappe.db.get_value(
+                    "POS Profile", pos_profile, "cost_center"
+                )
 
         invoice.save()
 
